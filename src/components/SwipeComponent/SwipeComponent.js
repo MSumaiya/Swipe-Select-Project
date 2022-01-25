@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
 import JsonValues from "../../values/values.json";
-import Typography from "@mui/material/Typography";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import classes from "./SwipeComponent.module.css";
-import Button from "@mui/material/Button";
 import EuroSymbolIcon from "@mui/icons-material/EuroSymbol";
+import PaperLayout from "../Layout/PaperLayout";
+import SwipeComponentStyle from "./SwipeComponent.styles";
+import TypographyStyle from "../TypographyStyle/TypographyStyle";
 
 import SwiperCore, {
   Keyboard,
@@ -19,29 +17,26 @@ import SwiperCore, {
 } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
-
-// install Swiper modules
+import PrimaryButton from "../Button/PrimaryButton";
+import SecondaryTypographyStyle from "../TypographyStyle/SecondaryTypographyStyle";
 SwiperCore.use([Keyboard, Navigation, Mousewheel, Pagination]);
 
 export default function SwipeComponent() {
   const [clickValue, setClickValue] = useState("");
-  /* const [numStyle, setNumStyle] = useState(false); */
   const [selectValue, setSelectValue] = useState("");
   const [edit, setEdit] = useState(false);
   const [display, setDisplay] = useState(true);
+  const classes = SwipeComponentStyle();
 
   useEffect(() => {
     setClickValue(sessionStorage.getItem("key"));
     clickValue && console.log("clickValue:", clickValue);
-    /* numStyle && setNumStyle(!numStyle ) */
   }, [clickValue]);
 
   const handleSwiperSlideClick = (event) => {
     event.preventDefault();
     sessionStorage.setItem("key", event.target.innerText);
     setSelectValue(event.target.innerText);
-    /* console.log("numStyle :", !numStyle ) */
-    //setEdit(false);
   };
 
   const handleEdit = () => {
@@ -58,169 +53,67 @@ export default function SwipeComponent() {
   return (
     <>
       {display && (
-        <Box sx={{ width: { md: "60%", sm: "75%", xs: "90%" } }}>
-          <Paper elevation={3} sx={{ borderLeft: "8px solid #00817a" }}>
-            <Box
-              pl={2}
-              pr={2}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "start",
-                  justifyContent: "center",
-                }}
-              >
-                <Typography
+        <PaperLayout>
+          <Box pl={2} pr={2} className={classes.editBoxPrimaryStyle}>
+            <Box className={classes.editBoxSecondaryStyle}>
+              <TypographyStyle text={clickValue} />
+              <Box className={classes.editBoxTirtiaryStyle}>
+                <EuroSymbolIcon
                   sx={{
                     fontSize: {
-                      lg: "6rem",
-                      md: "5rem",
-                      sm: "4rem",
-                      xs: "3rem",
+                      lg: "3.5rem",
+                      md: "2.5rem",
+                      sm: "2rem",
+                      xs: "1.8rem",
                     },
-                    fontWeight: "bolder",
-                    color: "#474747" /* 5b5959 */,
+                    color: "#5b5959",
                   }}
-                >
-                  {clickValue}
-                </Typography>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "start",
-                    alignItems: "center",
-                  }}
-                >
-                  <EuroSymbolIcon
-                    sx={{
-                      fontSize: {
-                        lg: "4rem",
-                        md: "3rem",
-                        sm: "3rem",
-                        xs: "2.5rem",
-                      },
-                      color: "#5b5959",
-                    }}
-                  ></EuroSymbolIcon>
-                  <Typography
-                    sx={{
-                      fontSize: {
-                        lg: "4rem",
-                        md: "3rem",
-                        sm: "3rem",
-                        xs: "2.5rem",
-                      },
-                      color: "#5b5959",
-                    }}
-                  >
-                    /Month
-                  </Typography>
-                </Box>
-              </Box>
-              <Box
-                mt={2}
-                p={2}
-                sx={{
-                  display: "flex",
-                  justifyContent: "end",
-                  alignItems: "center",
-                }}
-              >
-                <Button fullWidth onClick={handleEdit} variant="contained">
-                  <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "2rem",
-                        xs: "1.5rem",
-                      },
-                    }}
-                  >
-                    Edit
-                  </Typography>
-                </Button>
+                ></EuroSymbolIcon>
+                <TypographyStyle text="/Month" />
               </Box>
             </Box>
-          </Paper>
-        </Box>
+            <PrimaryButton onClick={handleEdit} buttonName="Edit" />
+          </Box>
+        </PaperLayout>
       )}
 
       {edit && (
         <>
-          <Box
-            sx={{
-              flexGrow: 1,
-              width: { lg: "50%", md: "50%", sm: "80%", xs: "90%" },
-            }}
-          >
-            <Paper elevation={3} sx={{ borderLeft: "8px solid #00817a" }}>
-              <Swiper
-                slidesPerView={5}
-                spaceBetween={0}
-                keyboard={{
-                  enabled: true,
-                }}
-                navigation={true}
-                mousewheel={true}
-                pagination={{
-                  clickable: true,
-                }}
-              >
-                {JsonValues.map((value) => (
-                  <SwiperSlide key={value.id} onClick={handleSwiperSlideClick}>
-                    <Box
-                      m={5}
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        fontSize: {
-                          lg: "4rem",
-                          md: "3rem",
-                          sm: "2.5rem",
-                          xs: "2rem",
-                        },
-                      }}
-                    >
-                      {/* {numStyle ? <span className={classes.test1}>{value.num}</span> : <span>{value.num}</span>} */}
-                      <span>{value.num}</span>
-                    </Box>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-              <Typography variant="h4">
-                You can swipe from above list. After select a value you need to
-                press update button below.
-              </Typography>
-              <Box
-                  mt={2}
-                  p={2}
-                  sx={{
-                    display: "flex",
-                    justifyContent: "end",
-                    alignItems: "center",
-                  }}
-                >
-                <Button fullWidth onClick={updateEdit} variant="contained">
-                <Typography
+          <PaperLayout>
+            <Swiper
+              slidesPerView={5}
+              spaceBetween={0}
+              keyboard={{
+                enabled: true,
+              }}
+              navigation={true}
+              mousewheel={true}
+              pagination={{
+                clickable: true,
+              }}
+            >
+              {JsonValues.map((value) => (
+                <SwiperSlide key={value.id} onClick={handleSwiperSlideClick}>
+                  <Box
+                    className={classes.updateBoxPrimaryStyle}
+                    m={5}
                     sx={{
                       fontSize: {
+                        lg: "3.5rem",
+                        md: "2.5rem",
                         sm: "2rem",
-                        xs: "1.5rem",
+                        xs: "1.8rem",
                       },
                     }}
                   >
-                    Update
-                  </Typography>
-                </Button>
-              </Box>
-            </Paper>
-          </Box>
+                    <span>{value.num}</span>
+                  </Box>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <SecondaryTypographyStyle text="You can swipe above list. After selecting a value you need to press update button also to see the changes." />
+            <PrimaryButton onClick={updateEdit} buttonName="Update" />
+          </PaperLayout>
         </>
       )}
     </>

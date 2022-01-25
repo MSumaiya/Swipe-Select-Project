@@ -1,37 +1,15 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import ProjectHeader from "./components/ProjectHeader/ProjectHeader";
 import SwipeComponent from "./components/SwipeComponent/SwipeComponent";
+import AppStyle from "./app.style";
 
 function App() {
+  const classes = AppStyle();
   return (
     <>
-      <Box sx={{
-        display:"flex",
-        flexDirection:"column",
-        justifyContent:"center",
-        alignItems:"center",
-      }}>
-        <Box
-          p={3}
-          sx={{
-            width: "100%",
-            flexGrow: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Typography
-            fontWeight="500"
-            color="primary"
-            variant="h1"
-            component="div"
-            gutterBottom
-          >
-            Swipe Select Project
-          </Typography>
-        </Box>
+      <Box className={classes.appWraper}>
+        <ProjectHeader />
         <SwipeComponent />
       </Box>
     </>
