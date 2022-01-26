@@ -23,5 +23,11 @@ const SwipeComponentStyle = makeStyles(() => ({
     fontWeight: "bolder",
     color: "#474747",
   },
+  active:{
+    color: "#005e51",
+   /*  border:"2px solid black", */
+  /*   backgroundColor: "aqua", */
+    fontSize: 40,
+  }
 }));
 export default SwipeComponentStyle;

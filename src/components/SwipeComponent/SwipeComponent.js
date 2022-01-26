@@ -145,7 +145,7 @@ import SecondaryTypographyStyle from "../TypographyStyle/SecondaryTypographyStyl
 SwiperCore.use([Keyboard, Navigation, Mousewheel, Pagination]);
 
 export default function SwipeComponent() {
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState(70);
   const [edit, setEdit] = useState(false);
   const [display, setDisplay] = useState(true);
   const [isClicked, setIsClicked] = useState(false);
