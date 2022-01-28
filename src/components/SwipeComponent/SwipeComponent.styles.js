@@ -25,8 +25,6 @@ const SwipeComponentStyle = makeStyles(() => ({
   },
   active:{
     color: "#005e51",
-   /*  border:"2px solid black", */
-  /*   backgroundColor: "aqua", */
     fontSize: 40,
   }
 }));
